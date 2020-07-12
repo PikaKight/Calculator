@@ -49,7 +49,7 @@ class No_acceleration:
 
 class No_time:
     def velocity_final(self, vinit:float, a:float, d:float) -> float:
-        self._velocity_final = math.sqrt((vinit**2) + (2*a*d))
+        self._velocity_final = math.sqrt(vinit**2 + 2*a*d)
         return self._velocity_final
     
     def velocity_init(self, vfin:float, a:float, d:float) -> float:
