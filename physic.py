@@ -57,14 +57,33 @@ class No_time:
         return self._velocity_init
     
     def acceleration(self, vfin:float, vinit:float, d:float) -> float:
-        self._acceleration = ((vfin**2) - (vinit**2)) / 2*d
+        self._acceleration = ((vfin**2) - (vinit**2)) / (2*d)
         return self._acceleration
     
     def distance(self, vfin:float, vinit:float, a:float) -> float:
-        self._distance = ((vfin**2) - (vinit**2)) / 2*a
+        self._distance = ((vfin**2) - (vinit**2)) / (2*a)
         return self._distance
 
 class No_final_velocity:
     def distance(self, vinit:float, a:float, t:float) -> float:
-        self._distance = vinit*t - 0.5*a*(t**2)
+        self._distance = vinit*t + 0.5*a*(t**2)
         return self._distance
+    
+    def velocity_init(self, d:float, a:float, t:float) -> float:
+        self._velocity_init = (d - 0.5*a*(t**2)) / t
+        return self._velocity_init
+    
+    def acceleration(self, vinit:float, d:float, t:float) -> float:
+        self._acceleration = (d - vinit) / (0.5*(t**2))
+        return self._acceleration
+    
+    def time(self, vinit:float, d:float, a:float) -> float:
+        if vinit**2 + 2 *d*a > 0:
+            self._time_1 = (-vinit + math.sqrt(vinit**2 + 2*d*a)) / (a)
+            self._time_2 = (-vinit - math.sqrt(vinit**2 + 2*d*a)) / (a)
+            return self._time_1, self._time_2
+        elif vinit**2 + 2*d*a == 0:
+            self._time = -vinit/ (a)
+            return self._time
+        else:
+            return "No possible solution without using complex numbers!"

@@ -23,3 +23,16 @@ def test_no_acceleration():
 def test_no_time():
    # assert True is False
    assert No_time().velocity_final(5,-2,4) == 3
+   assert No_time().velocity_init(5,2,4) == 3
+   assert No_time().acceleration(5,4,4.5) == 1
+   assert No_time().distance(5,-2,3) == 3.5
+
+def test_no_final_velocity():\
+   # assert True is False
+   assert No_final_velocity().distance(3, 5, 7) == 143.5
+   assert No_final_velocity().velocity_init(5, 3, 5) == -6.5
+   assert No_final_velocity().acceleration(5, 3, 5) == -0.16
+   assert No_final_velocity().time(5, 4, -2) == (1.0, 4.0)  
+   assert No_final_velocity().time(5, 2.5, -5) == 1
+   assert No_final_velocity().time(5, 6, -5) == "No possible solution without using complex numbers!"
+
