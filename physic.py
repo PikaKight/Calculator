@@ -13,23 +13,6 @@ class Base_velocity_equation:
         self._time = d/v
         return self._time
 
-class No_distance:
-    def velocity_final(self, vinit:float, a:float, t:float) -> float:
-        self._velocity_final = vinit + a*t
-        return self._velocity_final
-    
-    def velocity_init(self, vfin:float, a:float, t:float) -> float:
-        self._velocity_init = vfin - a*t
-        return self._velocity_init
-
-    def acceleration(self, vfin:float, vinit:float, t:float) -> float:
-        self._acceleration = (vfin - vinit) / t
-        return self._acceleration
-
-    def time(self, vfin:float, vinit:float, a:float) -> float:
-        self._time = (vfin - vinit) / a
-        return self._time
-
 class No_acceleration:
     def distance(self, vfin:float, vinit:float, t:float) -> float:
         self._distance = 0.5*(vfin + vinit)*t
@@ -46,6 +29,23 @@ class No_acceleration:
     def velocity_final(self, vinit:float, t:float, d:float) -> float:
         self._velocity_final = (2*d/t) - vinit
         return self._velocity_final
+
+class No_distance:
+    def velocity_final(self, vinit:float, a:float, t:float) -> float:
+        self._velocity_final = vinit + a*t
+        return self._velocity_final
+    
+    def velocity_init(self, vfin:float, a:float, t:float) -> float:
+        self._velocity_init = vfin - a*t
+        return self._velocity_init
+
+    def acceleration(self, vfin:float, vinit:float, t:float) -> float:
+        self._acceleration = (vfin - vinit) / t
+        return self._acceleration
+
+    def time(self, vfin:float, vinit:float, a:float) -> float:
+        self._time = (vfin - vinit) / a
+        return self._time
 
 class No_time:
     def velocity_final(self, vinit:float, a:float, d:float) -> float:
@@ -87,3 +87,28 @@ class No_final_velocity:
             return self._time
         else:
             return "No possible solution without using complex numbers!"
+
+class No_initial_velocity:
+    def distance(self, vfin:float, a:float, t:float) -> float:
+        self._distance = vfin*t - 0.5*a*(t**2)
+        return self._distance
+    
+    def velocity_final(self, a:float, t:float, d:float) -> float:
+        self._velocity_final = (d + 0.5*a*(t**2)) / t
+        return self._velocity_final
+    
+    def acceleration(self, vfin:float, t:float, d:float) -> float:
+        self._acceleration = (vfin*t - d) / (0.5*(t**2))
+        return self._acceleration
+    
+    def time(self, vfin:float, a:float, d:float) -> float:
+        if vfin**2 - 2 *d*a > 0:
+            self._time_1 = (vfin + math.sqrt((vfin **2) - 2*a*d)) / a
+            self._time_2 = (vfin - math.sqrt((vfin **2) - 2*a*d)) / a
+            return self._time_1, self._time_2
+        elif vfin**2 -2*a*d == 0:
+            self._time = vfin / a
+            return self._time
+        else:
+            return "No possible solution without using complex numbers!"
+    

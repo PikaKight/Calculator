@@ -36,3 +36,11 @@ def test_no_final_velocity():\
    assert No_final_velocity().time(5, 2.5, -5) == 1
    assert No_final_velocity().time(5, 6, -5) == "No possible solution without using complex numbers!"
 
+def test_no_initial_velocity():
+   # assert True is False
+   assert No_initial_velocity().distance(10, 6, 3) == 3
+   assert No_initial_velocity().velocity_final(10, 6, 3) == 30.5
+   assert No_initial_velocity().acceleration(10, 5, 3) == 3.76
+   assert No_initial_velocity().time(10, 4, 8) == (4, 1)
+   assert No_initial_velocity().time(10, 2, 25) == 5
+   assert No_initial_velocity().time(10, 3, 25) == "No possible solution without using complex numbers!"
